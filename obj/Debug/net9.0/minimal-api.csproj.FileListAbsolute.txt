@@ -126,3 +126,8 @@ C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\
 C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\obj\Debug\net9.0\minimal-api.csproj.AssemblyReference.cache
 C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\obj\Debug\net9.0\minimal-.F3613C90.Up2Date
+C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Gabriel Balduino\Documents\Estudos\C#\Dio\minimal-api\obj\Debug\net9.0\minimal-api.MvcApplicationPartsAssemblyInfo.cs
