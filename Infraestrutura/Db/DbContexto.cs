@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using MinimalsApi.Dominio.Entidades;
+using MinimalApi.Dominio.Entidades;
 
 namespace MinimalApi.Infraestrutura.Db;
 

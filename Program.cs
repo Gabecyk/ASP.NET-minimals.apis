@@ -5,10 +5,14 @@ using MinimalApi.Dominio.ModelViews;
 using MinimalApi.Dominio.Servicos;
 using MinimalApi.DTOs;
 using MinimalApi.Infraestrutura.Db;
+using MinimalApi.Dominio.Entidades;
+
+# region Builder
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAdministradorSevico, AdministradorServico>();
+builder.Services.AddScoped<IVeiculoSevico, VeiculoServico>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,21 +25,59 @@ builder.Services.AddDbContext<DbContexto>(options => {
 
 var app = builder.Build();
 
+#endregion
+
+# region Home
 
 app.MapGet("/", () => Results.Json(new Home()));
 
-app.MapPost("/login", ( [FromBody] LoginDTO loginDTO, IAdministradorSevico administradorSevico) => {
-    if(administradorSevico.Login(loginDTO) != null) {
+#endregion
+
+# region Administradores
+
+app.MapPost("/administradores/login", ([FromBody] LoginDTO loginDTO, IAdministradorSevico administradorSevico) =>
+{
+    if (administradorSevico.Login(loginDTO) != null)
+    {
         return Results.Ok("Login com sucesso!");
     }
-    else {
+    else
+    {
         return Results.Unauthorized();
     }
 });
 
+#endregion
+
+# region Veiculos
+
+app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoSevico veiculoSevico) =>
+{
+    var veiculo = new Veiculo
+    {
+        Nome = veiculoDTO.Nome,
+        Marca = veiculoDTO.Marca,
+        Ano = veiculoDTO.Ano
+    };
+    veiculoSevico.Incluir(veiculo);
+
+    return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
+});
+
+app.MapGet("/veiculos", ([FromQuery]int? pagina, IVeiculoSevico veiculoSevico) =>
+{
+    var veiculos = veiculoSevico.Todos(pagina);
+
+    return Results.Ok(veiculos);
+});
+
+#endregion
+
+# region App
 // Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.Run();
 
+#endregion

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MinimalsApi.Dominio.Entidades;
+namespace MinimalApi.Dominio.Entidades;
 
 public class Administrador
 {

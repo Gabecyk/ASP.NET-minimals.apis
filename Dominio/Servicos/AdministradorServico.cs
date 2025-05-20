@@ -1,7 +1,7 @@
 using MinimalApi.Dominio.Interfaces;
 using MinimalApi.DTOs;
 using MinimalApi.Infraestrutura.Db;
-using MinimalsApi.Dominio.Entidades;
+using MinimalApi.Dominio.Entidades;
 
 namespace MinimalApi.Dominio.Servicos;
 
