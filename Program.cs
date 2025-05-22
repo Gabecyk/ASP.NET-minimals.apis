@@ -11,6 +11,7 @@ using MinimalApi.Dominio.Entidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//ADD Serviços
 builder.Services.AddScoped<IAdministradorSevico, AdministradorServico>();
 builder.Services.AddScoped<IVeiculoSevico, VeiculoServico>();
 
@@ -29,7 +30,7 @@ var app = builder.Build();
 
 # region Home
 
-app.MapGet("/", () => Results.Json(new Home()));
+app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
 #endregion
 
@@ -45,7 +46,7 @@ app.MapPost("/administradores/login", ([FromBody] LoginDTO loginDTO, IAdministra
     {
         return Results.Unauthorized();
     }
-});
+}).WithTags("Administradores");
 
 #endregion
 
@@ -62,14 +63,53 @@ app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoSevico veicu
     veiculoSevico.Incluir(veiculo);
 
     return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
-});
+}).WithTags("Veiculos");
 
 app.MapGet("/veiculos", ([FromQuery]int? pagina, IVeiculoSevico veiculoSevico) =>
 {
     var veiculos = veiculoSevico.Todos(pagina);
 
     return Results.Ok(veiculos);
-});
+}).WithTags("Veiculos");
+
+app.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoSevico veiculoSevico) =>
+{
+    var veiculo = veiculoSevico.BuscaPorId(id);
+
+    if (veiculo == null)
+        return Results.NotFound();
+
+
+    return Results.Ok(veiculo);
+}).WithTags("Veiculos");
+
+app.MapPut("/veiculos/{id}", ([FromRoute]int id, VeiculoDTO veiculoDTO, IVeiculoSevico veiculoSevico) =>
+{
+    var veiculo = veiculoSevico.BuscaPorId(id);
+
+    if (veiculo == null)
+        return Results.NotFound();
+    
+    veiculo.Nome = veiculoDTO.Nome;
+    veiculo.Marca = veiculoDTO.Marca;
+    veiculo.Ano = veiculoDTO.Ano;
+
+    veiculoSevico.Atualizar(veiculo);
+
+    return Results.Ok(veiculo);
+}).WithTags("Veiculos");
+
+app.MapDelete("/veiculos/{id}", ([FromRoute]int id, IVeiculoSevico veiculoSevico) =>
+{
+    var veiculo = veiculoSevico.BuscaPorId(id);
+
+    if (veiculo == null)
+        return Results.NotFound();
+
+    veiculoSevico.Apagar(veiculo);
+
+    return Results.NoContent();
+}).WithTags("Veiculos");
 
 #endregion
 
